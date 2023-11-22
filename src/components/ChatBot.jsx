@@ -24,12 +24,12 @@ const Chatbot = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer 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", // Thay YOUR_API_KEY bằng API Key của bạn
+            "Bearer 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", // Thay YOUR_API_KEY bằng API Key của bạn
         },
         body: JSON.stringify({
           prompt: input,
           max_tokens: 1000,
-          model: "gpt-3.5-turbo",
+          model: "text-davinci-003",
         }),
       });
       setInput("");
