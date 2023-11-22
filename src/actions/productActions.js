@@ -20,6 +20,7 @@ import {
   PRODUCT_TOPRATED_REQUEST,
   PRODUCT_TOPRATED_SUCCESS,
   PRODUCT_TOPRATED_FAIL,
+  RECOMMEND_PRODUCT,
 } from '../constants/productConstants'
 import productsApi from '../api/productsApi'
 
@@ -172,5 +173,22 @@ export const productCreateReview = (productId, review) => async (dispatch, getSt
       type: PRODUCT_CREATE_REVIEW_FAIL,
       payload: err,
     })
+  }
+}
+
+export const recommendProduct= ()=> async (dispatch, getState)=> {
+  try {
+    dispatch({
+      type: RECOMMEND_PRODUCT,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    await productsApi.recommendProduct(userInfo.token)
+
+    
+  } catch (error) {
+    
   }
 }

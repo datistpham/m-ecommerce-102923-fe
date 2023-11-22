@@ -6,7 +6,11 @@ function CategoryFilter() {
   const navigate = useNavigate()
   const categories = ['all', 'Tivi', 'Tablet', 'Mobile', 'Laptop']
   const filterHandler = (category) => {
-    navigate('?category=' + category)
+    if(category=== "all" ) {
+      navigate("/")
+      return
+    }
+    navigate('/?category=' + category)
   }
 
   return (

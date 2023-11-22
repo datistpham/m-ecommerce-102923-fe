@@ -48,6 +48,15 @@ const productsApi = {
     }
     return axiosClient.post(`/api/products/${productId}/reviews`, review, config)
   },
+  recommendProduct: (token)=> {
+    const config=  {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer "+ token
+      }
+    }
+    return axiosClient.get("/api/recommendation", config)
+  }
 }
 
 export default productsApi

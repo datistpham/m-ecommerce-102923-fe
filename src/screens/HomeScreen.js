@@ -10,6 +10,7 @@ import Paginate from '../components/Paginate'
 import Meta from '../components/Meta'
 import CategoryFilter from '../components/CategoryFilter'
 import ProductCarousel from '../components/ProductCarousel'
+import RecommendProduct from '../components/RecommendProduct'
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -39,6 +40,8 @@ function HomeScreen() {
       ) : (
         <ProductCarousel />
       )}
+      <h1>Đề xuất sản phẩm</h1>
+      <RecommendProduct />
       <h1>Danh sách sản phẩm</h1>
       <CategoryFilter/>
       {loading ? (
