@@ -10,7 +10,7 @@ function CategoryFilter() {
       navigate("/")
       return
     }
-    navigate('/?category=' + category)
+    navigate('/category/' + category)
   }
 
   return (

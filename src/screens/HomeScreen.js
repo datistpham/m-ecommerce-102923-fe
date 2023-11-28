@@ -19,7 +19,7 @@ function HomeScreen() {
   const params = useParams()
   const location = useLocation()
   const keyword = params.keyword
-  const category = (location.search).split('=')[1]
+  const category = params.keyword
   let pageNumber = params.pageNumber || 1
 
 
