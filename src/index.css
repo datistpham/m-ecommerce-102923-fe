@@ -78,3 +78,63 @@ button.btn + .btn {
     font-size: 2.5vw;
   }
 }
+
+/* styles.css */
+
+.filter-container {
+  margin: 20px;
+}
+
+label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.range-container {
+  position: relative;
+}
+
+.range-connector {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #4CAF50;
+  transform-origin: 0 0;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+input[type="range"] {
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  position: relative;
+  z-index: 2;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.range-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #fff !important;
+}

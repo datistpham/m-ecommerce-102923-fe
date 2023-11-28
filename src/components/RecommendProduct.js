@@ -9,18 +9,23 @@ const RecommendProduct = () => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")) : {};
     useEffect(() => {
         (async () => {
-            const res = await axios({
-                url: apiConfig.baseUrl + "api/recommendation",
-                method: "get",
-                headers: {
-                    "Authorization": "Bearer " + userInfo.token
-                }
-
-            })
-            const result = await res.data
-            console.log(result)
-            setProducts(result)
-            return result
+            try {
+                const res = await axios({
+                    url: apiConfig.baseUrl + "api/recommendation",
+                    method: "get",
+                    headers: {
+                        "Authorization": "Bearer " + userInfo.token
+                    }
+    
+                })
+                const result = await res.data
+                console.log(result)
+                setProducts(result)
+                return result
+                
+            } catch (error) {
+                console.log(error)
+            }
         })()
     }, [userInfo.token])
     return (

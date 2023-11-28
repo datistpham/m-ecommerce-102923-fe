@@ -56,6 +56,9 @@ const productsApi = {
       }
     }
     return axiosClient.get("/api/recommendation", config)
+  },
+  getProductByCategory: (categoryId)=> {
+    return axiosClient.get("/api/products/category", {params: {categoryId}})
   }
 }
 

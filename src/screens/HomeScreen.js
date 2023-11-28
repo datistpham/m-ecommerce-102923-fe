@@ -11,6 +11,7 @@ import Meta from '../components/Meta'
 import CategoryFilter from '../components/CategoryFilter'
 import ProductCarousel from '../components/ProductCarousel'
 import RecommendProduct from '../components/RecommendProduct'
+import CategoryProduct from '../components/CategoryProduct'
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -42,6 +43,8 @@ function HomeScreen() {
       )}
       <h1>Đề xuất sản phẩm</h1>
       <RecommendProduct />
+      <h1>Phân loại sản phẩm</h1>
+      <CategoryProduct />
       <h1>Danh sách sản phẩm</h1>
       <CategoryFilter/>
       {loading ? (

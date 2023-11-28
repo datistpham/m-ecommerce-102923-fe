@@ -8,6 +8,7 @@ import FormContainer from '../components/FormContainer'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import uploadApi from '../api/uploadApi'
+import categoriesApi from '../api/categoryApi'
 
 function ProductEditScreen() {
   const navigate = useNavigate()
@@ -19,7 +20,9 @@ function ProductEditScreen() {
   const [category, setCategory] = useState('')
   const [price, setPrice] = useState(10000)
   const [countInStock, setCountInStock] = useState(0)
-  
+  const [categoryId, setCategoryId] = useState('')
+  const [listCategory, setListCategory] = useState([])
+
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState(false)
 
@@ -31,7 +34,11 @@ function ProductEditScreen() {
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const { loading, error, success } = productUpdate
-
+  const getListCategory = async () => {
+    const result = await categoriesApi.getListCategories(8)
+    console.log(result)
+    setListCategory(result.categories)
+  }
   useEffect(() => {
     setName(product.name)
     setImage(product.image)
@@ -40,7 +47,16 @@ function ProductEditScreen() {
     setCategory(product.category)
     setPrice(product.price)
     setCountInStock(product.countInStock)
+    setCategoryId(product.categoryId)
   }, [product])
+
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      getListCategory()
+    } else {
+      navigate('/login')
+    }
+  }, [dispatch, userInfo, navigate])
 
   const errorMessage = error && error.response.data.message
 
@@ -78,6 +94,7 @@ function ProductEditScreen() {
         brand,
         price,
         countInStock,
+        categoryId
       })
     )
   }
@@ -129,7 +146,13 @@ function ProductEditScreen() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
-
+          <Form.Group controlId='category'>
+            <Form.Label>Thể loại</Form.Label>
+            <Form.Select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} aria-label="Default select example">
+              <option>Chọn thể loại</option>
+              {listCategory?.map((item, key) => <option key={key} value={item._id}>{item.name}</option>)}
+            </Form.Select>
+          </Form.Group>
           <Form.Group controlId='category'>
             <Form.Label>Phân loại</Form.Label>
             <Form.Control

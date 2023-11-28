@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,11 +8,15 @@ import { FREE_SHIP_PRICE, SHIPPING_PRICE } from '../constants/cartConstants'
 import { createOrder, resetCreatedOrder } from '../actions/orderActions'
 import { resetCart } from '../actions/cartActions'
 import Price from '../components/Price'
+import { SocketContext } from '../SocketContainer'
 
 function PlaceOrderScreen() {
+  const { socket } = useContext(SocketContext)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const cart = useSelector((state) => state.cart)
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   cart.itemsPrice = Number(
     cart.cartItems.reduce((sum, item) => sum + item.price * item.qty, 0).toFixed(2)
@@ -32,6 +36,15 @@ function PlaceOrderScreen() {
   }, [navigate, success])
 
   const placeOrderHandler = async () => {
+    socket.emit("new_order", {
+      user: userInfo,
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      totalPrice: cart.totalPrice,
+    })
     await dispatch(
       createOrder({
         orderItems: cart.cartItems,
