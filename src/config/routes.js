@@ -24,7 +24,7 @@ import { SocketContext } from '../SocketContainer'
 import { useSnackbar } from 'react-simple-snackbar'
 
 function Routes() {
-  const [openSnackbar, closeSnackbar] = useSnackbar({position: "bottom-left"}, 10000)
+  const [openSnackbar, closeSnackbar] = useSnackbar({ position: "bottom-left" }, 10000)
   const { userInfo } = useSelector((state) => state.userLogin)
   const { socket } = useContext(SocketContext)
   useEffect(() => {
@@ -41,13 +41,15 @@ function Routes() {
   return (
     <>
       <ReactRoutes>
-        <Route path='/' element={<HomeScreen />} exact />
-        <Route path='/search/:keyword' element={<HomeScreen />} />
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='/search/' element={<HomeScreen is_search_page={true} />} />
         <Route path='/category/:keyword' element={<HomeScreen />} />
-        <Route path='/page/:pageNumber' element={<HomeScreen />} exact />
-        <Route path='/search/:keyword/page/:pageNumber' element={<HomeScreen />} />
+        <Route path='/page/:pageNumber' element={<HomeScreen />} />
+        <Route path='/page/:pageNumber/:category' element={<HomeScreen />} />
+        <Route path='/search/:keyword/page/:pageNumber' element={<HomeScreen is_search_page={true} />} />
 
         <Route path='/products/:id' element={<ProductScreen />} />
+        <Route path='/products/:categoryId' element={<ProductScreen />} />
         <Route path='/cart' element={<CartScreen />} />
         <Route path='/cart/:id' element={<CartScreen />} />
         <Route path='/shipping' element={<ShippingScreen />} />

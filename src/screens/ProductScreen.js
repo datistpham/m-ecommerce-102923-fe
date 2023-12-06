@@ -10,11 +10,12 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Meta from '../components/Meta'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import { useSnackbar } from 'react-simple-snackbar'
 
 function ProductScreen() {
   const [qty, setQty] = useState(1)
   const navigate = useNavigate()
-
+  const [openSnackbar, closeSnackbar] = useSnackbar({position: "bottom-left"}, 10000)
   const params = useParams()
   const dispatch = useDispatch()
 
@@ -56,10 +57,14 @@ function ProductScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault()
+    if(comment.length <= 0) {
+      openSnackbar(`Bạn phải bình luận để gửi đánh giá`)
+      return 
+    }
     dispatch(
       productCreateReview(params.id, {
         rating,
-        comment,
+        comment : comment,
       })
     )
   }

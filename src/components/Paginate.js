@@ -1,11 +1,12 @@
 import React from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
   const location = useLocation()
-  const category = (location.search).split('=')[1]
+  const params= useParams()
+  const category = params.category
 
   const redirectUrl = (x) => {
     if (isAdmin) {
@@ -16,9 +17,17 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
       }
     } else {
       if (keyword) {
-        return `/search/${keyword}/page/${x + 1}${category && `?category=${category}`}`
+        if(category ) {
+          return `/search/${keyword}/page/${x + 1}/${category}`
+        }
+        return `/search/${keyword}/page/${x + 1}`
+
       } else {
-        return `/page/${x + 1}${category && `?category=${category}`}`
+        if(category ) {
+          return `/page/${x + 1}${`${category}`}`
+        }
+        
+        return `/page/${x + 1}${``}`
       }
     }
   }

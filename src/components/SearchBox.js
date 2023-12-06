@@ -17,7 +17,7 @@ function SearchBox({isAdmin = false}) {
       )
     } else {
       if(keyword.trim()) {
-        navigate(`/search/${keyword}`)
+        navigate(`/search?query=${keyword}`)
       } else (
         navigate('/')
       )
